@@ -246,7 +246,8 @@ rows = [crow("Children with nine or fewer years of schooling", "earnings, childr
         crow("Linear cohort trend for each province added", "province-specific linear cohort trends"),
         crow("Instrument assigned by the province at age twelve", "instrument by the province at age twelve"),
         crow("Cohort exposure taken at age seventeen instead of eighteen", "exposure ratio of the year the cohort turned 17"),
-        crow("Cohort exposure taken at age nineteen instead of eighteen", "exposure ratio of the year the cohort turned 19")]
+        crow("Cohort exposure taken at age nineteen instead of eighteen", "exposure ratio of the year the cohort turned 19"),
+        crow("Cohorts born 1973 to 1976 left out", "cohorts born 1973 to 1976 left out")]
 write("oa_maturechecks", " & & \\multicolumn{2}{c}{Unweighted rows} & \\multicolumn{2}{c}{Rows weighted by precision} \\\\\n\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}\n & & Reduced form & Return to & Reduced form & Return to \\\\\nSample or added control & Children & (SE) [wild $p$] & college & (SE) [wild $p$] & college", rows, "@{}p{4.6cm}ccccc@{}")
 _loo = 'leave one province out: instrumented return, smallest and largest'
 frag("oa_matureloo", f"$[{C9.loc[_loo, 'coef']:.2f}, {C9.loc[_loo, 'se']:.2f}]$")

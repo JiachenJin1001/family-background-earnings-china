@@ -31,7 +31,8 @@ Outputs (output/, with the suffix _weighted for the weighted run):
                         under each provincial intensity measure; the placebo intensity
   u9_C_checks.csv       children with nine or fewer years of schooling; trade controls; cohort trends by region and by
                         province; pre-reform trends; leaving one province out; the instrument assigned by the province
-                        at age twelve; rows at 30 and over only; the exposure ratio of the year the cohort turned 17 or 19
+                        at age twelve; rows at 30 and over only; the exposure ratio of the year the cohort turned 17 or 19;
+                        the cohorts born 1973 to 1976 left out
   u9_D_cohort_bins.csv  coefficients on intensity by birth-cohort bin for college completion and earnings
   paper/figures/fig_mature_age.png   the cohort-bin coefficients (main run only)
 Blocks A to D can be run separately with U9_BLOCKS; block G (the Anderson-Rubin p-value of the return for all
@@ -332,6 +333,9 @@ if "C" in BLOCKS:
     coh_ = pd.read_csv(os.path.join(EXT, "cohort_exposure.csv")); by_year = coh_.set_index("year").exposure_ratio; pre_mean = float(coh_[coh_.birth_year_age18 <= 1980].exposure_ratio.mean())
     for age in (17, 19):
         e_age = s.by.add(age).map(by_year).fillna(pre_mean); add(f"exposure ratio of the year the cohort turned {age}", TB(s, (s.pro_predict_growth * e_age).values, rng), s)
+    # the pre-reform cohorts born 1973 to 1976 left out: in the cohort-bin figure their completion gradient is the pre-reform
+    # coefficient furthest from zero (block D), so the return is re-estimated without them
+    ss = s[~s.by.between(1973, 1976)].reset_index(drop=True); add("cohorts born 1973 to 1976 left out", TB(ss, ss.Z.values, rng), ss)
     pd.DataFrame(rows).to_csv(os.path.join(OUT, f"u9_C_checks{SFX}.csv"), index=False); print(pd.DataFrame(rows).round(3).to_string(index=False))
 
 # ------------------------------------------------------------------ D. cohort bins (completion at the child level; earnings on the rows at 30 and over)

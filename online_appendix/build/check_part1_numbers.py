@@ -116,6 +116,12 @@ _pys, _xts = _sp.loc[("system GMM, five waves", "Python")], _sp.loc[("system GMM
 text("Stata parity: system GMM", f"Python and \\texttt{{xtabond2}} give persistence of {_pys.rho0:.3f} and {_xts.rho0:.3f}, and the Hansen test rejects in both ({_pys.hansen_J:.2f} and {_xts.hansen_J:.2f} on four degrees of freedom)")
 check("Stata parity: both system GMM Hansen tests reject at 1 percent", _pys.hansen_p < 0.01 and _xts.hansen_p < 0.01 and int(_pys.df) == 4 and int(_xts.df) == 4)
 
+# 3a2. the cohorts left out in the last row of the table of checks are the pre-reform bin with the larger completion gradient
+_bins = pd.read_csv(os.path.join(U, "output", "u9_D_cohort_bins.csv")); _bins = _bins[_bins.outcome.str.startswith("college")].set_index("bin").coef
+check("pre-reform bin with the largest completion gradient is 1973-1976", abs(_bins["1973-1976"]) > abs(_bins["1972 or earlier"]) and "leaves out the cohorts born 1973 to 1976, the pre-reform cohorts whose college completion has the largest gradient" in TEXN, f"{_bins['1973-1976']:.3f} against {_bins['1972 or earlier']:.3f}")
+_c9 = pd.read_csv(os.path.join(U, "output", "u9_C_checks.csv")).set_index("check").loc["cohorts born 1973 to 1976 left out"]
+check("return without the cohorts born 1973 to 1976 stays above the least squares return", _c9.iv > 0.45 and _c9.p_wild < 0.01, f"return {_c9.iv:.2f}, wild p {_c9.p_wild:.3f}")
+
 # 3b. earnings at ages 30 and over: variants of the specification, checks, sample counts cited in the notes
 MAIN = "predicted provincial growth (main measure)"
 B9 = pd.read_csv(os.path.join(U, "output", "u9_B_main.csv")).set_index("intensity").loc[MAIN]; B9w = pd.read_csv(os.path.join(U, "output", "u9_B_main_weighted.csv")).set_index("intensity").loc[MAIN]
