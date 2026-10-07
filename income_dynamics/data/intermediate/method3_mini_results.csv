@@ -1,0 +1,10 @@
+object,variant,estimate,n
+Var(beta_i),raw,0.09887457992294964,2523
+Var(beta_i),O(1/T)-corrected,0.025215999486494653,2523
+Var(beta_i),SPJ overlapping,-0.21667913847141948,2523
+Var(beta_i),SPJ non-overlapping,-0.661557428605018,2523
+lambda_1,raw,0.008577298638380627,2523
+lambda_1,SPJ overlapping,-0.00192491803143853,2523
+lambda_1,SPJ non-overlapping,-0.04552973075791227,2523
+lambda_2,raw,0.01176147866436597,2523
+gamma_FE,FE-interaction,0.01198723665305002,8649

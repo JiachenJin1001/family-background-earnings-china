@@ -1,0 +1,21 @@
+# person-level records (licensed, not redistributed)
+data/raw/
+*.pkl
+*.dta
+ipumsi_*
+method3_mini_betahat_panel.csv
+
+# Python and LaTeX byproducts
+__pycache__/
+*.pyc
+*.log
+*.bbl
+*.blg
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.aux
+!unified/paper/main.aux
+.DS_Store

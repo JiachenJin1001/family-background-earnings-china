@@ -1,0 +1,22 @@
+row,return_to_college,college_channel,direct,college_share
+return at which college accounts for half of the premium,0.29413772593106047,0.0360318487000839,0.0360318487000839,0.5
+"least squares return, all children",0.44368429439687035,0.05435129178247087,0.01771240561769693,0.7542118118178087
+"least squares return, advantaged children",0.5193257135197507,0.06361735978061013,0.008446337619557667,0.8827934462943889
+return at which college accounts for all of the premium,0.5882754518621209,0.0720636974001678,0.0,1.0
+"instrumented return, less advantaged children",0.5696415406603706,0.06978104471769744,0.002282652682470354,0.9683245133843904
+"instrumented return, all children",0.6275576994846798,0.07687576969879913,-0.004812072298631329,1.0667752623336826
+"instrumented return, advantaged children",1.0688538036297852,0.13093450835995166,-0.05887081095978386,1.8169274278680958
+"lower end of the 90 percent Anderson-Rubin set, advantaged children",0.45,0.055124965230872985,0.016938732169294812,0.7649477784183834
+"lower end of the 95 percent Anderson-Rubin set, all children",0.5,0.06124996136763665,0.010813736032531149,0.849941976020426
+premium (entropy balancing),,0.0720636974001678,,
+completion gap (entropy balancing),,0.1224999227352733,,
+"completion rate, advantaged children",,0.3355408388520971,,
+"completion rate, less advantaged children reweighted",,0.2130409161168237,,
+direct effect: completion rate of less advantaged children times the difference in least squares returns,,0.018967704532952677,,
+three parts at the least squares returns: more degrees (completion gap times the return of advantaged children),,0.06361735978061013,,
+three parts at the least squares returns: gap between children without a degree,,-0.01052136691339501,,
+three parts at the least squares returns: share of the first two parts,,1.1460009310231494,,
+raw gap in mean log earnings,,0.19517467809571265,,
+raw gap: parental income and the demographic and provincial controls,,0.12311098069554485,,
+raw gap: college gap at the least squares return,,0.05435129178247087,,
+raw gap: remainder,,0.01771240561769693,,

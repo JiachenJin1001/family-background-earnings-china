@@ -1,0 +1,279 @@
+\part*{Part III. Replication guide}
+\addcontentsline{toc}{part}{Part III. Replication guide}
+
+\section{Replication files}
+\label{oa:replication}
+
+\subsection{Layout of the repository}
+
+The repository has five folders. Each pipeline folder holds its own
+code, its inputs, and the estimates it writes; the folder of the paper
+holds the scripts that combine them.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Folders of the repository.}
+\label{oatab:layout}
+\begin{tabular}{@{}L{4.4cm}L{10.6cm}@{}}
+\toprule
+Folder & Content \\
+\midrule
+\folder{unified} & The paper (\folder{unified/paper}); the scripts that build the sample of the paper and produce its descriptive facts, the premium, the expansion design, the decomposition, the tables, and every figure (\folder{unified/code}); and their output (\folder{unified/output}). \\
+\folder{income_dynamics} & Construction of the panel from the CFPS
+files, residualization, and the estimates of the earnings process and the
+attenuation schedule
+(Sections~\ref{P-sec:process} and \ref{P-sec:measurement} of the paper). \\
+\folder{college_expansion} & Provincial intensity measures, the cohort exposure series, the placebo from examination registrations, the census check of trends before the reform, and the entropy-balancing routine that \folder{unified/code} imports. \\
+\folder{formal_results} & Computations behind Part II of this appendix. \\
+\folder{online_appendix} & Source of this appendix, the script that
+writes its tables from the estimation output, and the checks of its
+numbers. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Data availability}
+
+Table~\ref{oatab:dataaccess} lists the data the paper uses and states for each whether the repository carries it and how to obtain it
+otherwise. The repository carries every aggregate series and every file
+of estimates. It does not carry person-level records from the China
+Family Panel Studies or the census samples, which their providers
+license to registered users and do not allow to be redistributed. A
+registered user who places the files in the folders named below can run
+the pipeline from the raw data.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Data sources and access.}
+\label{oatab:dataaccess}
+\begin{tabular}{@{}L{4.3cm}L{3.0cm}L{7.6cm}@{}}
+\toprule
+Data & In the repository & Access \\
+\midrule
+China Family Panel Studies, waves 2010 to 2022 (adult, family
+roster, and family economy files) & No & Institute of Social Science
+Survey, Peking University. Registration and download at
+\url{https://www.isss.pku.edu.cn/cfps/}. Place each wave in
+\texttt{income\_dynamics/data/raw/CFPS2010}, \ldots,
+\texttt{CFPS2022}. \\
+Census samples of 1990 and 2000 (one percent) & No & National Bureau of
+Statistics of China through IPUMS International
+\citep{IPUMSInternational}, \url{https://international.ipums.org}.
+Variables: census year, age, province (\texttt{GEO1\_CN}), educational attainment, person weight. Save the extract in \texttt{college\_expansion/data/external} as \texttt{ipumsi\_00001.csv.gz}, the file that \code{college_expansion/code/p16_census_pretrend.py} reads. \\
+Provincial intensity of the expansion & Yes & Constructed from the
+provincial series of \citet{Ma2024IER}:
+\code{college_expansion/data/external/expansion_intensity_real.csv}. \\
+National admissions and the exposure ratio & Yes &
+\code{college_expansion/data/external/cohort_exposure.csv}. \\
+Registrations for the college entrance examination by province, 1990s &
+Yes & \emph{Chinese Educational Statistical Yearbook}:
+\code{college_expansion/data/external/cee_registrants_province.csv}. \\
+Exports and GDP by province, 2000 & Yes & \emph{China Statistical
+Yearbook for Regional Economy} 2001:
+\code{college_expansion/data/external/expgdp2000.csv}. \\
+Senior secondary completion of adults born 1956 to 1976, by province &
+Yes & Province-level shares computed from the census samples:
+\code{college_expansion/data/external/census_hs_stock.csv}. \\
+Consumer prices by province and year & Yes &
+\code{college_expansion/data/external/cpi_province_year.csv}. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Software}
+
+The estimates are computed in Python 3.12 with \texttt{numpy},
+\texttt{pandas}, \texttt{scipy}, \texttt{statsmodels},
+\texttt{matplotlib}, and \texttt{pyreadstat}; the file
+\code{requirements.txt} lists the versions. The dynamic-panel estimates
+are also computed in Stata 18 with \texttt{xtabond2}
+(\folder{income_dynamics/code/stata}). The paper and this appendix
+compile with pdfLaTeX and BibTeX.
+
+\subsection{Order of execution}
+
+\begin{enumerate}
+\item \emph{Panel and samples} (\texttt{./run\_all.sh -{}-from-raw}). \code{income_dynamics/code/01_build_panel.py}
+and \code{income_dynamics/code/02_sample_and_parents.py} read the CFPS
+files and link children to parents; \code{unified/code/d0_dynamics_panel.py}
+writes the child-wave panel of the children with at least three waves;
+\code{income_dynamics/code/03_step0_residualize.py} residualizes it, \code{income_dynamics/code/ws_panel_7wave.py} builds the reconstructed seven-wave panel, and \code{income_dynamics/code/m14_parent_process.py} estimates the earnings process of the linked parents.
+These steps need the licensed files. The sample of the paper (children observed in at least two waves at ages 22 to 55), the level of earnings at ages 30 and over, and the two rows per child of the expansion design are built by \code{unified/code/sample_mature_age.py}, a module that the scripts of the later steps import.
+\item \emph{Earnings process and measurement.} The scripts listed in Table~\ref{oatab:exhibits} for Sections~\ref{P-sec:process} and \ref{P-sec:measurement} of the paper. At this step \code{run_all.sh} also runs seven scripts whose outputs the scripts of Table~\ref{oatab:exhibits} and \code{unified/code/u7_error_structures.py} read: \code{income_dynamics/code/04_method1_md.py}, \code{income_dynamics/code/05_method2_abgmm.py}, \code{income_dynamics/code/06_mini_method3_randcoef.py}, \code{income_dynamics/code/ws_methods_7wave.py}, \code{income_dynamics/code/ws_method1_arma11.py}, \code{income_dynamics/code/ws_p1_6_ma1_rw.py}, and \code{income_dynamics/code/ws_m3_strict_exogeneity_test.py}.
+\item \emph{Premium.}
+\code{unified/code/u8_premium_specifications.py}, on the level of earnings at ages 30 and over; the balancing routine is that of
+\code{college_expansion/code/ws_07b_entropy_balance.py}.
+\item \emph{Expansion and decomposition.}
+\code{unified/code/u9_mature_age_earnings.py},\\
+\code{unified/code/u12_returns_by_family_background.py}, and\\
+\code{unified/code/u13_decomposition_mature_age.py}, each run with unweighted rows and with rows weighted by the precision the earnings process implies. The first of these is also run for two blocks that are computed only on request: block G (the Anderson--Rubin $p$-value of the return for all children at every point of the grid, and the first stage of three-year completion) and block R (randomization inference).
+\code{unified/code/u14_sample_facts.py} describes the sample and
+supplies the first stages on all children; \code{unified/code/u16_identity_in_balanced_comparison.py} splits the premium inside the balanced comparison; \code{college_expansion/code/p16_census_pretrend.py} runs the census check; then the other scripts of
+\folder{unified/code}, among them \code{unified/code/u17_income_variance_by_wave.py} and \code{unified/code/u15_nonlinear_persistence_runs.py}.
+\item \emph{Checks and documents.}
+\code{unified/code/check_paper_numbers.py} checks the numbers printed in the paper against the estimation output;
+\code{online_appendix/build/build_tables.py} writes the tables of Part I
+of this appendix; \code{online_appendix/build/check_part1_numbers.py}
+and \code{online_appendix/build/check_part2_numbers.py} check the numbers of Parts I and II.
+\end{enumerate}
+
+\noindent The script \code{run_all.sh} executes steps 2 to 5 in this order, and step 1 as well when called with \texttt{-{}-from-raw}. Most of the running time goes to the wild cluster bootstrap with 9,999 replications, the grid inversion behind the Anderson--Rubin sets, the randomization inference, and the ten runs of the stochastic estimator of nonlinear persistence.
+
+\clearpage
+\subsection{Tables and figures of the paper}
+
+{\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}L{4.6cm}L{6.0cm}L{4.6cm}@{}}
+\caption{The script and the output file behind each table and figure of
+the paper, and behind the numbers reported only in its text.}
+\label{oatab:exhibits} \\
+\toprule
+Exhibit of the paper & Script & Output \\
+\midrule
+\endfirsthead
+\toprule
+Exhibit of the paper & Script & Output \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Table~\ref{P-tab:desc}. The sample &
+\code{unified/code/u14_sample_facts.py} &
+\code{unified/output/u14_A_sample_means.csv} \\
+Table~\ref{P-tab:md}. Permanent and transitory components &
+\code{income_dynamics/code/m7_md_cellweighted_boot.py} &
+\code{income_dynamics/output/tables/m7_md_cellw_boot.csv} \\
+Figure~\ref{P-fig:autocov}. Variances and autocovariances by group &
+\code{unified/code/fig_autocov.py} &
+\code{unified/paper/figures/fig_autocov.png} \\
+Figure~\ref{P-fig:ridge}. Identification ridge &
+\code{unified/code/fig_ridge.py} &
+\code{unified/output/u5_ridge_draws.csv} \\
+Online Appendix Table~\ref{oatab:autocov}. Autocovariances &
+\code{income_dynamics/code/m5_md_weighted_and_ridge.py} &
+\code{income_dynamics/output/tables/m5_moment_se.csv} \\
+Table~\ref{P-tab:ab}. Dynamic-panel estimates &
+\code{income_dynamics/code/m10_abgmm_table3.py} &
+\code{income_dynamics/output/tables/m10_abgmm_table3.csv} \\
+Table~\ref{P-tab:summary}. Comparison of groups &
+\code{income_dynamics/code/m13_mde_group_null.py},
+\code{income_dynamics/code/m16_joint_moment_test.py},
+\code{income_dynamics/code/m10_abgmm_table3.py},
+\code{income_dynamics/code/ws_05b_abb_stochastic_em.py},
+\code{unified/code/u10_growth_gap.py} &
+\code{income_dynamics/output/tables/m13_mde.csv},
+\code{unified/output/u10_growth_gap.csv} \\
+Table~\ref{P-tab:eta}. Attenuation schedule &
+\code{formal_results/code/appendix_theory_computations.py} &
+\code{formal_results/output/A_eta_bootstrap.csv} \\
+Table~\ref{P-tab:eta}, panel B. Corrected published estimates &
+\code{unified/code/u2_recovery_by_process.py} &
+\code{unified/output/u2_recovery_by_process.csv} \\
+Table~\ref{P-tab:cre}. The premium &
+\code{unified/code/u8_premium_specifications.py},
+\code{college_expansion/code/ws_07b_entropy_balance.py} &
+\code{unified/output/u8_premium_specifications.csv},
+\code{unified/output/u8_entropy_balancing.csv} \\
+Table~\ref{P-tab:markers}. Competing markers &
+\code{unified/code/u8_premium_specifications.py} &
+\code{unified/output/u8_premium_specifications.csv} \\
+Figure~\ref{P-fig:spec}. Fifteen specifications &
+\code{unified/code/u8_premium_specifications.py},
+\code{unified/code/fig_spec_curve.py} &
+\code{unified/output/u8_premium_specifications.csv} \\
+Table~\ref{P-tab:threats}. Assumptions, threats, and diagnostics &
+\code{unified/code/u9_mature_age_earnings.py},
+\code{unified/code/u12_returns_by_family_background.py},
+\code{unified/code/u13_decomposition_mature_age.py},
+\code{college_expansion/code/p16_census_pretrend.py} &
+\code{unified/output/u9_B_main.csv},
+\code{unified/output/u9_C_checks.csv},
+\code{unified/output/u12_returns_by_family_background.csv},
+\code{unified/output/u13_C_design_facts.csv} \\
+Figure~\ref{P-fig:fs}. College completion and first stage &
+\code{unified/code/fig_first_stage.py} &
+\code{unified/paper/figures/fig_first_stage.png}, \code{unified/output/fig_first_stage_left.csv} \\
+Table~\ref{P-tab:mature}. Earnings and occupation at ages 30 and over; first stages with one observation per child &
+\code{unified/code/u9_mature_age_earnings.py},
+\code{unified/code/u14_sample_facts.py} &
+\code{unified/output/u9_B_main.csv},
+\code{unified/output/u14_C_first_stages_all_children.csv} \\
+Figure~\ref{P-fig:mature}. Event study &
+\code{unified/code/u9_mature_age_earnings.py} &
+\code{unified/output/u9_D_cohort_bins.csv},
+\code{unified/paper/figures/fig_mature_age.png} \\
+Table~\ref{P-tab:groups}. Returns for all children and by family background &
+\code{unified/code/u12_returns_by_family_background.py},
+\code{unified/code/u9_mature_age_earnings.py} &
+\code{unified/output/u12_returns_by_family_background.csv},
+\code{unified/output/u12_anderson_rubin_grid.csv},
+\code{unified/output/u9_B_main.csv},
+\code{unified/output/u9_anderson_rubin_grid.csv} \\
+Table~\ref{P-tab:bounds}. The direct effect; the three parts of the premium inside the balanced comparison &
+\code{unified/code/u13_decomposition_mature_age.py},
+\code{unified/code/u16_identity_in_balanced_comparison.py} &
+\code{unified/output/u13_B_identity.csv},
+\code{unified/output/u16_identity_in_balanced_comparison.csv} \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Numbers reported in the text of the paper and not in a table or figure}} \\
+Section~\ref{P-sec:income}. Variance of log income by wave &
+\code{unified/code/u17_income_variance_by_wave.py} &
+\code{unified/output/u17_income_variance_by_wave.csv} \\
+Section~\ref{P-sec:sample}. Screens, employment, least squares return by age &
+\code{unified/code/u14_sample_facts.py} &
+\code{unified/output/u14_B_sample_facts.csv},
+\code{unified/output/u14_D_return_by_age.csv} \\
+Section~\ref{P-sec:md}. Criterion values under alternative error structures; inverse-variance reweighting and its parametric bootstrap &
+\code{unified/code/u7_error_structures.py},
+\code{income_dynamics/code/m5_md_weighted_and_ridge.py} &
+\code{unified/output/u7_error_structures.csv},
+\code{income_dynamics/output/tables/m5_weighted_md.csv} \\
+Section~\ref{P-sec:abb}. Test of strict exogeneity &
+\code{income_dynamics/code/ws_m3_strict_exogeneity_test.py} &
+\code{income_dynamics/data/intermediate/ws/ws_m3_strict_exogeneity.csv} \\
+Section~\ref{P-sec:abb}. Nonlinear persistence, ten runs &
+\code{income_dynamics/code/ws_05b_abb_stochastic_em.py},
+\code{unified/code/u15_nonlinear_persistence_runs.py} &
+\code{unified/output/u15_nonlinear_persistence_summary.csv} \\
+Section~\ref{P-sec:design}. Randomization inference &
+\code{unified/code/u9_mature_age_earnings.py} (block R) &
+\code{unified/output/u9_R_randomization_inference.csv},
+\code{unified/output/u9_R_randomization_within_region.csv} \\
+Section~\ref{P-sec:earnings}. Three-year completion; set from randomization inference &
+\code{unified/code/u9_mature_age_earnings.py} (blocks G and R) &
+\code{unified/output/u9_G_three_year_completion.csv},
+\code{unified/output/u9_R_randomization_within_region.csv} \\
+\end{longtable}}
+
+\noindent Table~\ref{P-tab:roadmap} of the paper contains no estimates beyond those of
+the exhibits listed here. The tables of this appendix name their
+scripts in their notes.
+
+\subsection{How the tables of estimates are produced}
+
+The eight tables of the paper that report means or estimates with standard errors
+(Tables~\ref{P-tab:desc}, \ref{P-tab:md}, \ref{P-tab:ab}, \ref{P-tab:summary},
+\ref{P-tab:cre}, \ref{P-tab:markers},
+\ref{P-tab:mature} and \ref{P-tab:groups}) are generated rather than typed. The script
+\code{unified/code/build_paper_tables.py} reads the files of estimates
+named in its header, formats each coefficient with its significance stars
+and standard error, and writes the body of each table to
+\code{unified/paper/tables/en/}; the source of the paper reads these fragments. The
+differential-growth estimate of Table~\ref{P-tab:summary} comes from
+\code{unified/code/u10_growth_gap.py}. Running the script with
+the option \texttt{-{}-check} compares the fragments on disk with what the files of
+estimates imply, and the check described below runs that comparison.
+
+\subsection{How the printed numbers are checked}
+
+The estimates printed in the paper are checked against the files of estimates. For each of them,
+\code{unified/code/check_paper_numbers.py} reads the file of estimates,
+formats the value as it is printed, and searches for that string in the
+source of the paper; it fails if the string is absent. The script also
+checks the arithmetic the text performs on estimates, such as the share
+of the gap that a correction closes or the magnitude implied by a
+difference in the instrument. The two checks of this appendix work the
+same way.

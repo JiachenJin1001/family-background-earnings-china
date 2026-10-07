@@ -1,0 +1,30 @@
+item,value,sd
+children,2774.0,
+advantaged children,453.0,
+child-waves,7512.0,
+waves per child,2.708002883922134,
+first birth year,1961.0,
+last birth year,1996.0,
+raw gap in mean log earnings,0.19517467809571265,
+"mean log labor income, advantaged children",10.672031725175197,0.6428478719849859
+"log family income of the parental household, advantaged children",11.055405405310536,0.7490254936270614
+"years of schooling, advantaged children",13.196467991169978,3.317129833029197
+"college completion, advantaged children",0.3355408388520971,0.47270122019290306
+"female, advantaged children",0.30022075055187636,0.4588605981194244
+"urban residence, advantaged children",0.7549668874172185,0.4305823503182117
+"age over the waves in the window, advantaged children",39.697792494481234,6.974296204971722
+"birth year, advantaged children",1979.0529801324503,7.730345971722402
+"waves in the window, advantaged children",2.746136865342163,0.8225335072852438
+"mean log labor income, less advantaged children",10.476857047079484,0.643533962990257
+"log family income of the parental household, less advantaged children",10.582668708718089,0.7861414543219035
+"years of schooling, less advantaged children",10.743214131839725,3.695929472393047
+"college completion, less advantaged children",0.14002585092632486,0.347088629276187
+"female, less advantaged children",0.19603619129685482,0.3970817757347369
+"urban residence, less advantaged children",0.5381301163291684,0.49865140746406134
+"age over the waves in the window, less advantaged children",39.19900186701135,6.574350089847399
+"birth year, less advantaged children",1979.642826367945,7.2248643663150585
+"waves in the window, less advantaged children",2.7005601034037054,0.7994850907220695
+families,2606.0,
+families with two or more children in the sample,159.0,
+baseline standard error clustered on child,0.02851608567595448,
+baseline standard error clustered on family,0.028755291187174924,

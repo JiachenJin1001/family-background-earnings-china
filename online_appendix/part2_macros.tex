@@ -1,0 +1,37 @@
+% part2_macros.tex
+% Definitions needed by part2_formal_results.tex. \input this file in the
+% preamble of the host document, after amsmath is loaded or not (the two
+% packages below are requested here in either case).
+%
+% Every definition is guarded, so the host document may define the same
+% command or theorem environment before this file is read.
+%
+% Numbering: the theorem-like environments are numbered within section.
+% part2_formal_results.tex also expects equations and tables to be numbered
+% within section; the host document sets that with
+%   \numberwithin{equation}{section}  and  \numberwithin{table}{section}.
+
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{amsthm}
+
+\providecommand{\E}{\mathrm{E}}
+\providecommand{\Var}{\mathrm{Var}}
+\providecommand{\Cov}{\mathrm{Cov}}
+\providecommand{\Corr}{\mathrm{Corr}}
+\providecommand{\plim}{\operatorname{plim}}
+\providecommand{\Direct}{\mathrm{Direct}}
+
+\makeatletter
+\theoremstyle{plain}
+\@ifundefined{proposition}{\newtheorem{proposition}{Proposition}[section]}{}
+\@ifundefined{corollary}{\newtheorem{corollary}[proposition]{Corollary}}{}
+\@ifundefined{lemma}{\newtheorem{lemma}[proposition]{Lemma}}{}
+\theoremstyle{definition}
+\@ifundefined{assumption}{\newtheorem{assumption}{Assumption}[section]}{}
+\theoremstyle{remark}
+\@ifundefined{remark}{\newtheorem{remark}[proposition]{Remark}}{}
+\theoremstyle{plain}
+\makeatother
+
+% links to files of the repository (the host document defines \code with a hyperlink)
+\providecommand{\code}[1]{\texttt{\detokenize{#1}}}

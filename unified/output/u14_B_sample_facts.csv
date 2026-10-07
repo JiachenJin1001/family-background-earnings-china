@@ -1,0 +1,87 @@
+item,value
+all children: children,4536.0
+all children: advantaged children,755.0
+all children: child-waves,12675.0
+all children: waves per child,2.7943121693121693
+all children: first birth year,1961.0
+all children: last birth year,1997.0
+all children: provinces,29.0
+all children: share advantaged,0.16644620811287478
+all children: raw gap in mean log earnings,0.20848536142803376
+"all children: college completion, advantaged",0.4052980132450331
+"all children: college completion, less advantaged",0.1848717270563343
+all children: mean age at the first wave,31.64704585537919
+three waves: children,2523.0
+three waves: advantaged children,420.0
+three waves: child-waves,8649.0
+three waves: waves per child,3.428061831153389
+three waves: first birth year,1963.0
+three waves: last birth year,1996.0
+three waves: provinces,27.0
+three waves: share advantaged,0.16646848989298454
+three waves: raw gap in mean log earnings,0.17322711700102822
+"three waves: college completion, advantaged",0.4380952380952381
+"three waves: college completion, less advantaged",0.20304327151688065
+three waves: mean age at the first wave,31.37613951644867
+level at 30 and over: children,2774.0
+level at 30 and over: advantaged children,453.0
+level at 30 and over: child-waves,7512.0
+level at 30 and over: waves per child,2.708002883922134
+level at 30 and over: first birth year,1961.0
+level at 30 and over: last birth year,1996.0
+level at 30 and over: provinces,29.0
+level at 30 and over: share advantaged,0.16330209084354722
+level at 30 and over: raw gap in mean log earnings,0.19517467809571265
+"level at 30 and over: college completion, advantaged",0.3355408388520971
+"level at 30 and over: college completion, less advantaged",0.14002585092632486
+level at 30 and over: mean age at the first wave,36.957101658255226
+children with a row at 30 and over,2774.0
+children with a row below 30,2343.0
+children with both rows,581.0
+children with a row below 30 only,1762.0
+children with three waves and a level at 30 and over,1804.0
+first birth year among the rows below 30,1985.0
+last birth year among the rows at 30 and over,1996.0
+children born before 1964,38.0
+rows at 30 and over of children born before 1964,38.0
+rows at 30 and over of children born 1981 or later,1444.0
+"mean log income at 30 and over, survey year 2014",10.193472787742754
+"mean log income at 30 and over, survey year 2016",10.23208391594164
+"mean log income at 30 and over, survey year 2018",10.49330449596432
+"mean log income at 30 and over, survey year 2020",10.620917119677113
+"mean log income at 30 and over, survey year 2022",10.807434460287807
+"children with a retrospective report observed at ages 22 to 55 in 2014-2022, advantaged",1661.0
+"share of them in the sample, advantaged",0.45454545454545453
+"share of them with three waves, advantaged",0.25285972305839854
+"share of their person-waves with positive labor income, advantaged",0.555645981688708
+"children with a retrospective report observed at ages 22 to 55 in 2014-2022, less advantaged",9013.0
+"share of them in the sample, less advantaged",0.419505159214468
+"share of them with three waves, less advantaged",0.23332963497170753
+"share of their person-waves with positive labor income, less advantaged",0.49694837366266964
+children with three waves and fewer than three residual waves,0.0
+residual person-waves of the children with three waves,8649.0
+all children: children with both indicators,3982.0
+all children: indicators agree,0.8571069814163736
+all children: advantaged by the retrospective indicator only,0.10246107483676545
+all children: advantaged by the current-occupation indicator only,0.04043194374686088
+three waves: children with both indicators,2220.0
+three waves: indicators agree,0.8563063063063063
+three waves: advantaged by the retrospective indicator only,0.09864864864864865
+three waves: advantaged by the current-occupation indicator only,0.04504504504504504
+level at 30 and over: children with both indicators,2234.0
+level at 30 and over: indicators agree,0.850940017905103
+level at 30 and over: advantaged by the retrospective indicator only,0.10922112802148612
+level at 30 and over: advantaged by the current-occupation indicator only,0.03983885407341092
+linked parents with a birth year,7161.0
+"parents' birth year, 5th percentile",1939.0
+"parents' birth year, median",1961.0
+"parents' birth year, 95th percentile",1972.0
+all children: share of child-waves on the household roster of a linked parent,0.6448126232741618
+three waves: share of child-waves on the household roster of a linked parent,0.638802173661695
+level at 30 and over: share of child-waves on the household roster of a linked parent,0.652689030883919
+children with three waves and a retrospective report for one parent only,190.0
+all children: retrospective report for one parent only,319.0
+all children: province at age twelve recorded in the 2010 wave,2578.0
+all children: province at age twelve differs from the province assigned,194.0
+"share with a different province at age twelve, advantaged",0.07860262008733625
+"share with a different province at age twelve, less advantaged",0.07452830188679245

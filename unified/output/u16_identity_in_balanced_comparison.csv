@@ -1,0 +1,13 @@
+item,value
+children,2774.0
+premium,0.07206369740016783
+"completion, advantaged children",0.3355408388520971
+"completion, less advantaged children (reweighted)",0.21304091611682374
+completion gap,0.12249992273527338
+"return, advantaged children (graduates minus children without a degree)",0.5410716650892731
+"return, less advantaged children (reweighted)",0.5174291816919077
+part 1: college channel (return of advantaged children x completion gap),0.06628123716768167
+part 2: same degrees worth more (completion of less advantaged children x difference in returns),0.005036816322251523
+part 3: gap between the children without a degree,0.0007456439102302426
+"share of the premium, part 1",0.919759040389278
+gap between the graduates of the two groups,0.024388127307595653

@@ -1,0 +1,7 @@
+item,coef,se
+"least squares return, all children",0.44368429439687035,0.037335547046116864
+"least squares return, less advantaged children",0.4302925602706748,0.0392340063425471
+"least squares return, advantaged children",0.5193257135197507,0.0564931712275055
+"least squares return below 30, all children",0.23252583080221428,0.026479900905658313
+coefficient on family background before college completion enters,0.07593111640093464,0.032489221970225426
+coefficient on family background after college completion enters,0.021530029565999684,0.030547085443637354

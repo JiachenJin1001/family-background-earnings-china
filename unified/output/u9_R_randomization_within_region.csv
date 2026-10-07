@@ -1,0 +1,2 @@
+reassignment,provinces_by_region,reassignments,permutation_p_reduced_form,permutation_p_first_stage,set95_lo,set95_hi,set90_lo,set90_hi,grid_lo,grid_hi
+"within region (east, center, west)","{'C': 8, 'E': 10, 'W': 11}",4999,0.0002,0.0006,0.45,1.3,0.5,1.1,-6.0,6.0
